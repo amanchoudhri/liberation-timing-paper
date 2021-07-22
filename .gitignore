@@ -1,5 +1,10 @@
 # Data
 *.csv
+
+# Miscellaneous project files
+images/
+models/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
