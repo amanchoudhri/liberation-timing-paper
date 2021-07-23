@@ -3,6 +3,9 @@
 import numpy as np
 import pandas as pd
 
+from matplotlib import pyplot as plt
+from sklearn.calibration import calibration_curve
+
 # All variables that we initially flagged as potential predictors of weaning
 ALL_WEANING_PREDICTORS = [
     'tidal_volume_set', 'tidal_volume_observed', 'plateau_pressure', 'fio2',
@@ -28,6 +31,17 @@ def group_by_stay(df: pd.DataFrame, col: str = None):
     Returns either the grouped dataframe or optionally, just one grouped column."""
     grouped = df.groupby('stay_id', axis='rows', group_keys=False)
     return grouped[col] if col else grouped
+
+def create_calibration_curve(model, X, y, plt_title, save_path=None):
+    probability_estimates = model.predict_proba(X)[:, 1]
+    prob_true, prob_pred = calibration_curve(y, probability_estimates, n_bins=10)
+
+    _ , ax = plt.subplots(nrows=1, ncols=1)
+    ax.axline([0, 0], [1, 1], color='black', alpha=0.3)
+    plt.title(plt_title)
+    plt.plot(prob_pred, prob_true)
+    if save_path:
+        plt.savefig(save_path, facecolor='white')
 
 def remove_outliers(df: pd.DataFrame):
     """Process the data and remove outliers, inplace."""
