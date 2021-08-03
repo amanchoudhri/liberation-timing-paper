@@ -12,8 +12,8 @@ ALL_WEANING_PREDICTORS = [
     'ventilator_type', 'peep_set', 'ventilator_mode', 'total_peep_level',
     'peak_insp_pressure', 'mean_airway_pressure', 'inspiratory_time', 'spo2', 'po2',
     'pco2', 'aado2_calc', 'pao2fio2ratio', 'ph', 'baseexcess', 'BICARBONATE', 'totalco2',
-    'LACTATE', 'gcs', 'gcsmotor', 'gcsverbal', 'gcseyes', 'heartrate', 'sysbp', 'diasbp',
-    'meanbp', 'resprate', 'tempc', 'PARALYSIS', 'CHRONIC_PULMONARY', 'OBESITY',
+    'LACTATE', 'gcs', 'gcs_motor', 'gcs_verbal', 'gcs_eyes', 'heart_rate', 'sbp', 'dbp',
+    'mbp', 'resp_rate', 'temperature', 'PARALYSIS', 'CHRONIC_PULMONARY', 'OBESITY',
     'driving_pressure', 'imputed_TV_standardized', 'HEMATOCRIT', 'HEMOGLOBIN',
     'carboxyhemoglobin', 'methemoglobin', 'ANIONGAP', 'ALBUMIN', 'BANDS', 'BILIRUBIN',
     'CREATININE', 'PLATELET', 'PTT', 'INR', 'PT', 'BUN', 'WBC', 'urine_output', 'GLUCOSE',
@@ -50,7 +50,7 @@ def remove_outliers(df: pd.DataFrame):
 
     df.loc[df['driving_pressure'] <= 0, 'driving_pressure'] = np.nan
 
-    df.loc[df['meanbp'] > 200, 'meanbp'] = np.nan
+    df.loc[df['mbp'] > 200, 'mbp'] = np.nan
     df.loc[df['rr_set_set'] <= 0, 'rr_set_set'] = np.nan
     df.loc[df['peak_insp_pressure'] <= 0, 'peak_insp_pressure'] = np.nan
     df.loc[df['mean_airway_pressure'] <= 0, 'mean_airway_pressure'] = np.nan
@@ -72,7 +72,7 @@ def remove_outliers(df: pd.DataFrame):
     df.loc[:, 'pao2fio2ratio'] = np.minimum(df['pao2fio2ratio'], 600)
 
     df.loc[df['last_driving_pressure'] <= 0, 'last_driving_pressure'] = np.nan
-    df.loc[df['last_meanbp'] > 200, 'last_meanbp'] = np.nan
+    df.loc[df['last_mbp'] > 200, 'last_mbp'] = np.nan
     df.loc[df['last_rr_set_set'] <= 0, 'last_rr_set_set'] = np.nan
     df.loc[df['last_peak_insp_pressure'] <= 0, 'last_peak_insp_pressure'] = np.nan
     df.loc[df['last_mean_airway_pressure'] <= 0, 'last_mean_airway_pressure'] = np.nan
@@ -96,23 +96,23 @@ def remove_extremes(df: pd.DataFrame):
     df['rate_std'] = np.minimum(df['rate_std'], 10)
     df['last_rate_std'] = np.minimum(df['last_rate_std'], 10)
 
-    df['sysbp'] = np.minimum(np.maximum(df['sysbp'], -4), 4)
-    df['last_sysbp'] = np.minimum(np.maximum(df['last_sysbp'], -4), 4)
+    df['sbp'] = np.minimum(np.maximum(df['sbp'], -4), 4)
+    df['last_sbp'] = np.minimum(np.maximum(df['last_sbp'], -4), 4)
 
-    df['diasbp'] = np.minimum(df['diasbp'], 5)
-    df['last_diasbp'] = np.minimum(df['last_diasbp'], 5)
+    df['dbp'] = np.minimum(df['dbp'], 5)
+    df['last_dbp'] = np.minimum(df['last_dbp'], 5)
 
-    df['meanbp'] = np.minimum(np.maximum(df['meanbp'], -4), 4)
-    df['last_meanbp'] = np.minimum(np.maximum(df['last_meanbp'], -4), 4)
+    df['mbp'] = np.minimum(np.maximum(df['mbp'], -4), 4)
+    df['last_mbp'] = np.minimum(np.maximum(df['last_mbp'], -4), 4)
 
-    df['resprate'] = np.minimum(df['resprate'], 4)
-    df['last_resprate'] = np.minimum(df['last_resprate'], 4)
+    df['resp_rate'] = np.minimum(df['resp_rate'], 4)
+    df['last_resp_rate'] = np.minimum(df['last_resp_rate'], 4)
 
-    df['tempc'] = np.minimum(np.maximum(df['tempc'], -4), 4)
-    df['last_tempc'] = np.minimum(np.maximum(df['last_tempc'], -4), 4)
+    df['temperature'] = np.minimum(np.maximum(df['temperature'], -4), 4)
+    df['last_temperature'] = np.minimum(np.maximum(df['last_temperature'], -4), 4)
 
-    df['heartrate'] = np.minimum(np.maximum(df['heartrate'], -3), 4)
-    df['last_heartrate'] = np.minimum(np.maximum(df['last_heartrate'], -3), 4)
+    df['heart_rate'] = np.minimum(np.maximum(df['heart_rate'], -3), 4)
+    df['last_heart_rate'] = np.minimum(np.maximum(df['last_heart_rate'], -3), 4)
 
     df['spo2'] = np.maximum(df['spo2'], -4)
     df['last_spo2'] = np.maximum(df['last_spo2'], 4)
