@@ -12,7 +12,7 @@ ALL_WEANING_PREDICTORS = [
     'ventilator_type', 'peep_set', 'ventilator_mode', 'total_peep_level',
     'peak_insp_pressure', 'mean_airway_pressure', 'inspiratory_time', 'spo2', 'po2',
     'pco2', 'aado2_calc', 'pao2fio2ratio', 'ph', 'baseexcess', 'BICARBONATE', 'totalco2',
-    'LACTATE', 'gcs', 'gcs_motor', 'gcs_verbal', 'gcs_eyes', 'heart_rate', 'sbp', 'dbp',
+    'lactate', 'gcs', 'gcs_motor', 'gcs_verbal', 'gcs_eyes', 'heart_rate', 'sbp', 'dbp',
     'mbp', 'resp_rate', 'temperature', 'PARALYSIS', 'CHRONIC_PULMONARY', 'OBESITY',
     'driving_pressure', 'imputed_TV_standardized', 'HEMATOCRIT', 'HEMOGLOBIN',
     'carboxyhemoglobin', 'methemoglobin', 'ANIONGAP', 'ALBUMIN', 'BANDS', 'BILIRUBIN',
