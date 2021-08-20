@@ -7,23 +7,24 @@ from matplotlib import pyplot as plt
 from sklearn.calibration import calibration_curve
 
 # All variables that we initially flagged as potential predictors of weaning
-ALL_WEANING_PREDICTORS = [
-    'tidal_volume_set', 'tidal_volume_observed', 'plateau_pressure', 'fio2',
-    'ventilator_type', 'peep_set', 'ventilator_mode', 'total_peep_level',
-    'peak_insp_pressure', 'mean_airway_pressure', 'inspiratory_time', 'spo2', 'po2',
-    'pco2', 'aado2_calc', 'pao2fio2ratio', 'ph', 'baseexcess', 'BICARBONATE', 'totalco2',
-    'lactate', 'gcs', 'gcs_motor', 'gcs_verbal', 'gcs_eyes', 'heart_rate', 'sbp', 'dbp',
-    'mbp', 'resp_rate', 'temperature', 'PARALYSIS', 'CHRONIC_PULMONARY', 'OBESITY',
-    'driving_pressure', 'imputed_TV_standardized', 'HEMATOCRIT', 'HEMOGLOBIN',
-    'carboxyhemoglobin', 'methemoglobin', 'ANIONGAP', 'ALBUMIN', 'BANDS', 'BILIRUBIN',
-    'CREATININE', 'PLATELET', 'PTT', 'INR', 'PT', 'BUN', 'WBC', 'urine_output', 'GLUCOSE',
-    'weight', 'HYPERTENSION', 'DIABETES_UNCOMPLICATED', 'DIABETES_COMPLICATED',
-    'HYPOTHYROIDISM', 'LIVER_DISEASE', 'AIDS', 'LYMPHOMA', 'METASTATIC_CANCER',
-    'SOLID_TUMOR', 'RHEUMATOID_ARTHRITIS', 'COAGULOPATHY', 'DEFICIENCY_ANEMIAS',
-    'ALCOHOL_ABUSE', 'DRUG_ABUSE', 'DEPRESSION', 'elixhauser_score', 'first_careunit',
-    'admission_type', 'insurance', 'admission_location', 'marital_status', 'ethnicity',
-    'age', 'gender', 'imputed_height', 'imputed_IBW'
+PREDICTORS_1 = [
+    'hour','PARALYSIS','CHRONIC_PULMONARY','OBESITY','elixhauser_score',
+    'age','gender','admission_type', 'admission_location','insurance',
+    'marital_status','ethnicity','language','first_careunit','imputed_IBW',
+    'hour_baseline','imputed_height'
 ]
+PREDICTORS_2 = [f'last_{c}' for c in (
+    'peep_set','tidal_volume_set','resp_rate','peak_insp_pressure','plateau_pressure',
+    'mean_airway_pressure','minutes_vol','pao2fio2ratio','driving_pressure', 'po2','pco2','aado2_calc',
+    'ph','baseexcess','totalco2','temperature','fio2_chartevents', 'urine_output',
+    'lactate','glucose','gcs','gcs_verbal','gcs_motor','gcs_eyes','gcs_unable',
+    'CREATININE','PLATELET','PTT','BUN','WBC','sbp','dbp','mbp','spo2','heart_rate',
+    'respiration_24hours','coagulation_24hours','liver_24hours','cardiovascular_24hours',
+    'cns_24hours','renal_24hours','any_vaso','amount','weight','imputed_TV_standardized',
+    'opioid','benzo','propofol','dex'
+)]
+
+ALL_WEANING_PREDICTORS = PREDICTORS_1 + PREDICTORS_2
 
 def group_by_stay(df: pd.DataFrame, col: str = None):
     """Group the given dataframe by the 'stay_id' column.
