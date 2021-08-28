@@ -46,9 +46,6 @@ def create_calibration_curve(model, X, y, plt_title, save_path=None):
 
 def remove_outliers(df: pd.DataFrame):
     """Process the data and remove outliers, inplace."""
-    df.loc[:, 'amount'] = df['amount']/1000
-    df.loc[:, 'last_amount'] = df['last_amount']/1000
-
     df.loc[df['driving_pressure'] <= 0, 'driving_pressure'] = np.nan
 
     df.loc[df['mbp'] > 200, 'mbp'] = np.nan
